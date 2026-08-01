@@ -52,9 +52,14 @@ if (fs.existsSync(publicDir)) {
 app.get('/', (req, res) => {
   const indexPath = path.join(publicDir, 'index.html');
   if (fs.existsSync(indexPath)) {
-    return res.sendFile(indexPath);
+    try {
+      const html = fs.readFileSync(indexPath, 'utf8');
+      return res.type('html').send(html);
+    } catch (e) {
+      console.error('[Index Read Error]:', e);
+    }
   }
-  res.send(`<!DOCTYPE html><html><head><title>SUBBIAH VADIVELAN Portfolio API</title></head><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#f8fafc"><h2>🚀 SUBBIAH VADIVELAN Portfolio API</h2><p>Server is live and running smoothly!</p><p>👉 <a href="/api/public/portfolio" style="color:#38bdf8">View Public Portfolio API Data</a></p></body></html>`);
+  res.send(`<!DOCTYPE html><html><head><title>SUBBIAH VADIVELAN Portfolio API</title></head><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#f8fafc"><h2>🚀 SUBBIAH VADIVELAN Portfolio API</h2><p>Server is live!</p><p>👉 <a href="/api/public/portfolio" style="color:#38bdf8">View Public Portfolio API Data</a></p></body></html>`);
 });
 
 // Single-Page Application Catch-all Handler
@@ -64,7 +69,12 @@ app.get('*', (req, res) => {
   }
   const indexPath = path.join(publicDir, 'index.html');
   if (fs.existsSync(indexPath)) {
-    return res.sendFile(indexPath);
+    try {
+      const html = fs.readFileSync(indexPath, 'utf8');
+      return res.type('html').send(html);
+    } catch (e) {
+      console.error('[SPA Read Error]:', e);
+    }
   }
   res.status(200).send(`<!DOCTYPE html><html><head><title>SUBBIAH VADIVELAN Portfolio API</title></head><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#f8fafc"><h2>🚀 SUBBIAH VADIVELAN Portfolio API</h2><p>Server is live!</p><p>👉 <a href="/api/public/portfolio" style="color:#38bdf8">View Public Portfolio API Data</a></p></body></html>`);
 });
