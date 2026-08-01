@@ -9,6 +9,11 @@ import publicRoutes from './routes/publicRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 dotenv.config();
 
 const app = express();
@@ -20,7 +25,7 @@ app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
 // Static directory for file uploads & downloads
-const uploadDir = path.join(process.cwd(), 'uploads');
+const uploadDir = path.resolve(__dirname, '../uploads');
 app.use('/uploads', express.static(uploadDir));
 
 // Routes
@@ -35,7 +40,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Serve static frontend build if present
-const frontendDist = path.join(process.cwd(), '..', 'frontend', 'dist');
+const frontendDist = path.resolve(__dirname, '../../frontend/dist');
 app.use(express.static(frontendDist));
 
 app.get('*', (req, res, next) => {
