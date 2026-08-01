@@ -40,17 +40,17 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Portfolio Backend CMS API is running smooth!' });
 });
 
-// Serve static frontend build if present
-const frontendDist = path.resolve(__dirname, '../../frontend/dist');
+// Serve static frontend build from backend/public
+const publicDir = path.resolve(__dirname, '../public');
 
-if (fs.existsSync(frontendDist)) {
-  console.log(`[Static]: Serving frontend from ${frontendDist}`);
-  app.use(express.static(frontendDist));
+if (fs.existsSync(publicDir)) {
+  console.log(`[Static]: Serving frontend from ${publicDir}`);
+  app.use(express.static(publicDir));
 }
 
 // Explicit Root Route Handler
 app.get('/', (req, res) => {
-  const indexPath = path.join(frontendDist, 'index.html');
+  const indexPath = path.join(publicDir, 'index.html');
   if (fs.existsSync(indexPath)) {
     return res.sendFile(indexPath);
   }
@@ -62,7 +62,7 @@ app.get('*', (req, res) => {
   if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
     return res.status(404).json({ error: 'API Endpoint Not Found' });
   }
-  const indexPath = path.join(frontendDist, 'index.html');
+  const indexPath = path.join(publicDir, 'index.html');
   if (fs.existsSync(indexPath)) {
     return res.sendFile(indexPath);
   }
