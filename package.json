@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "cd backend && npm install && cd ../frontend && npm install --include=dev && npm run build",
+    "build": "cd backend && npm install",
     "start": "node backend/src/server.js"
   }
 }
