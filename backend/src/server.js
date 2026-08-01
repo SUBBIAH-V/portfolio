@@ -46,18 +46,27 @@ const frontendDist = path.resolve(__dirname, '../../frontend/dist');
 if (fs.existsSync(frontendDist)) {
   console.log(`[Static]: Serving frontend from ${frontendDist}`);
   app.use(express.static(frontendDist));
-} else {
-  console.warn(`[Static Warning]: ${frontendDist} not found.`);
 }
 
-app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
+// Explicit Root Route Handler
+app.get('/', (req, res) => {
   const indexPath = path.join(frontendDist, 'index.html');
   if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.send(`<h2>Portfolio Backend API Running!</h2><p>Frontend static build build pending.</p><p><a href="/api/public/portfolio">View Portfolio JSON API</a></p>`);
+    return res.sendFile(indexPath);
   }
+  res.send(`<!DOCTYPE html><html><head><title>SUBBIAH VADIVELAN Portfolio API</title></head><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#f8fafc"><h2>🚀 SUBBIAH VADIVELAN Portfolio API</h2><p>Server is live and running smoothly!</p><p>👉 <a href="/api/public/portfolio" style="color:#38bdf8">View Public Portfolio API Data</a></p></body></html>`);
+});
+
+// Single-Page Application Catch-all Handler
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+    return res.status(404).json({ error: 'API Endpoint Not Found' });
+  }
+  const indexPath = path.join(frontendDist, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  res.status(200).send(`<!DOCTYPE html><html><head><title>SUBBIAH VADIVELAN Portfolio API</title></head><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#f8fafc"><h2>🚀 SUBBIAH VADIVELAN Portfolio API</h2><p>Server is live!</p><p>👉 <a href="/api/public/portfolio" style="color:#38bdf8">View Public Portfolio API Data</a></p></body></html>`);
 });
 
 // Initialize DB and Start Server
