@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { connectDB } from './config/db.js';
 import { seedDBIfEmpty, setDbConnected } from './utils/dataStore.js';
 import authRoutes from './routes/authRoutes.js';
@@ -41,29 +42,45 @@ app.get('/api/health', (req, res) => {
 
 // Serve static frontend build if present
 const frontendDist = path.resolve(__dirname, '../../frontend/dist');
-app.use(express.static(frontendDist));
+
+if (fs.existsSync(frontendDist)) {
+  console.log(`[Static]: Serving frontend from ${frontendDist}`);
+  app.use(express.static(frontendDist));
+} else {
+  console.warn(`[Static Warning]: ${frontendDist} not found.`);
+}
 
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
-  res.sendFile(path.join(frontendDist, 'index.html'), (err) => {
-    if (err) next();
-  });
+  const indexPath = path.join(frontendDist, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.send(`<h2>Portfolio Backend API Running!</h2><p>Frontend static build build pending.</p><p><a href="/api/public/portfolio">View Portfolio JSON API</a></p>`);
+  }
 });
 
 // Initialize DB and Start Server
 const startServer = async () => {
-  const dbStatus = await connectDB();
-  setDbConnected(dbStatus);
-  if (dbStatus) {
-    await seedDBIfEmpty();
-  }
+  try {
+    const dbStatus = await connectDB();
+    setDbConnected(dbStatus);
+    if (dbStatus) {
+      await seedDBIfEmpty();
+    }
 
-  app.listen(PORT, () => {
-    console.log(`=================================================`);
-    console.log(`🚀 Portfolio CMS Server running on http://localhost:${PORT}`);
-    console.log(`📌 Public API: http://localhost:${PORT}/api/public/portfolio`);
-    console.log(`=================================================`);
-  });
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`=================================================`);
+      console.log(`🚀 Portfolio Server running on port ${PORT}`);
+      console.log(`📌 Public API: /api/public/portfolio`);
+      console.log(`=================================================`);
+    });
+  } catch (err) {
+    console.error('[Server Start Error]:', err);
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Portfolio Fallback Server running on port ${PORT}`);
+    });
+  }
 };
 
 startServer();
