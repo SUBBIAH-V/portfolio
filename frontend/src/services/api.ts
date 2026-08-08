@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PortfolioData, AdminStats, Message } from '../types';
+import { PortfolioData, AdminStats } from '../types';
 
 export const API_BASE_URL = '/api';
 
@@ -21,7 +21,6 @@ export const api = axios.create({
   },
 });
 
-// Request interceptor for injecting JWT token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('admin_token');
@@ -33,17 +32,17 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Fallback initial dataset (SUBBIAH VADIVELAN AI Portfolio)
+// Fallback initial dataset (Subbiah V. AI Engineer Portfolio)
 export const fallbackPortfolioData: PortfolioData = {
   profile: {
-    name: 'SUBBIAH VADIVELAN',
-    headline: 'AI Engineer & Full-Stack Developer',
-    bio: 'Passionate AI Engineer and Full-Stack Developer specializing in machine learning, computer vision, healthcare AI, and intelligent web applications. Building scalable solutions from deep learning models to full-stack cloud applications.',
+    name: 'Subbiah V.',
+    headline: 'AI Engineer Aspirant',
+    bio: 'Artificial Intelligence & Data Science student passionate about Machine Learning, Computer Vision, Data Engineering and Full-Stack Development. I build practical solutions that transform real-world problems into intelligent applications.',
     avatarUrl: '/subbiah_avatar.png',
-    resumeUrl: '/Subbiah_Resume.pdf',
+    resumeUrl: '/resume.pdf',
     phone: '+91 8122121806',
     email: 'subbiahvadivelan@gmail.com',
-    location: 'Tamil Nadu, India',
+    location: 'Chennai, Tamil Nadu, India',
     github: 'https://github.com/SUBBIAH-V',
     linkedin: 'https://www.linkedin.com/in/subbiah-v-356a18305/',
     leetcode: 'https://leetcode.com',
@@ -51,236 +50,291 @@ export const fallbackPortfolioData: PortfolioData = {
     twitter: 'https://twitter.com'
   },
   about: {
-    aboutMe: 'I am an AI Engineer & Full-Stack Developer dedicated to leveraging Artificial Intelligence, Machine Learning, and Modern Web Architectures to solve complex real-world problems. My experience spans building medical diagnostic systems, smart agricultural solutions, computer vision gesture recognizers, and enterprise CRMs.',
-    careerObjective: 'Driven to build high-impact AI models and full-stack software applications that bridge research and production, delivering scalable, intelligent user experiences.',
-    interests: ['Artificial Intelligence', 'Machine Learning & Deep Learning', 'Computer Vision (OpenCV/CNN)', 'Full-Stack Development (MERN)', 'Smart Agriculture & Healthcare Tech']
+    aboutMe: 'I am a B.Tech Artificial Intelligence & Data Science student at Sri Sairam Institute of Technology, Chennai. My interests span Artificial Intelligence, Machine Learning, Computer Vision, Data Engineering and Full-Stack Development.\n\nI enjoy turning ideas into working products — from machine learning models and computer vision systems to data-driven dashboards and full-stack web applications.\n\nI am continuously improving my problem-solving, data structures and algorithms skills while building real-world projects.',
+    careerObjective: 'B.Tech in Artificial Intelligence & Data Science (Sri Sairam Institute of Technology, Chennai · 2023 - 2027 · CGPA 8.31/10). Aiming to leverage Machine Learning, Deep Learning, and MERN stack engineering to build intelligent enterprise solutions.',
+    interests: ['AI/ML', 'Data Engineering', 'Software Development']
   },
   skills: [
-    { name: 'Python', category: 'AI/ML', level: 95, icon: 'code' },
-    { name: 'TensorFlow & PyTorch', category: 'AI/ML', level: 90, icon: 'cpu' },
-    { name: 'OpenCV & Computer Vision', category: 'AI/ML', level: 88, icon: 'eye' },
+    // Programming
+    { name: 'Python', category: 'Programming', level: 95, icon: 'code' },
+    { name: 'Java', category: 'Programming', level: 85, icon: 'code' },
+    { name: 'C', category: 'Programming', level: 88, icon: 'code' },
+    { name: 'JavaScript', category: 'Programming', level: 90, icon: 'code' },
+
+    // AI / Machine Learning
+    { name: 'Machine Learning', category: 'AI / Machine Learning', level: 94, icon: 'cpu' },
+    { name: 'Deep Learning', category: 'AI / Machine Learning', level: 90, icon: 'cpu' },
+    { name: 'CNN', category: 'AI / Machine Learning', level: 92, icon: 'cpu' },
+    { name: 'Computer Vision', category: 'AI / Machine Learning', level: 90, icon: 'eye' },
+    { name: 'TensorFlow', category: 'AI / Machine Learning', level: 88, icon: 'cpu' },
+    { name: 'Keras', category: 'AI / Machine Learning', level: 85, icon: 'cpu' },
+    { name: 'Scikit-learn', category: 'AI / Machine Learning', level: 92, icon: 'bar-chart' },
+    { name: 'XGBoost', category: 'AI / Machine Learning', level: 90, icon: 'bar-chart' },
+    { name: 'MediaPipe', category: 'AI / Machine Learning', level: 88, icon: 'eye' },
+    { name: 'OpenCV', category: 'AI / Machine Learning', level: 90, icon: 'eye' },
+
+    // Data
+    { name: 'Pandas', category: 'Data', level: 92, icon: 'database' },
+    { name: 'NumPy', category: 'Data', level: 90, icon: 'database' },
+    { name: 'Data Analysis', category: 'Data', level: 94, icon: 'bar-chart' },
+    { name: 'Power BI', category: 'Data', level: 85, icon: 'bar-chart' },
+    { name: 'Google Colab', category: 'Data', level: 95, icon: 'terminal' },
+
+    // Backend
+    { name: 'Python', category: 'Backend', level: 95, icon: 'terminal' },
+    { name: 'Flask', category: 'Backend', level: 88, icon: 'server' },
+    { name: 'FastAPI', category: 'Backend', level: 86, icon: 'server' },
+    { name: 'Node.js', category: 'Backend', level: 90, icon: 'server' },
+    { name: 'Express.js', category: 'Backend', level: 88, icon: 'server' },
+    { name: 'REST APIs', category: 'Backend', level: 92, icon: 'globe' },
+
+    // Frontend
+    { name: 'HTML', category: 'Frontend', level: 95, icon: 'layout' },
+    { name: 'CSS', category: 'Frontend', level: 92, icon: 'layout' },
+    { name: 'JavaScript', category: 'Frontend', level: 90, icon: 'code' },
     { name: 'React.js', category: 'Frontend', level: 92, icon: 'layout' },
-    { name: 'Node.js & Express', category: 'Backend', level: 88, icon: 'server' },
-    { name: 'MongoDB', category: 'Backend', level: 85, icon: 'database' },
     { name: 'Tailwind CSS', category: 'Frontend', level: 90, icon: 'feather' },
-    { name: 'Flask & Streamlit', category: 'Backend', level: 88, icon: 'terminal' },
-    { name: 'Scikit-Learn & XGBoost', category: 'AI/ML', level: 92, icon: 'bar-chart' },
-    { name: 'IoT & Hardware Integration', category: 'Tools', level: 80, icon: 'radio' }
+
+    // Database / Tools
+    { name: 'MongoDB', category: 'Database / Tools', level: 90, icon: 'database' },
+    { name: 'MongoDB Atlas', category: 'Database / Tools', level: 88, icon: 'database' },
+    { name: 'Git', category: 'Database / Tools', level: 92, icon: 'code' },
+    { name: 'GitHub', category: 'Database / Tools', level: 94, icon: 'code' },
+    { name: 'VS Code', category: 'Database / Tools', level: 95, icon: 'terminal' },
+    { name: 'Vercel', category: 'Database / Tools', level: 90, icon: 'globe' }
   ],
   experience: [
     {
       id: 'exp-1',
-      company: 'IEEE Conference & AI Research Lab',
-      position: 'AI Lead & Researcher',
-      duration: '2023 - Present',
-      location: 'India',
-      description: 'Authored and published research paper on Agro Puthalavan AI Smart Agriculture. Developed machine learning pipelines using XGBoost and CNN for disease detection and crop optimization.',
-      technologies: ['Python', 'XGBoost', 'TensorFlow', 'Flask', 'OpenCV']
+      company: 'Maestoriminds',
+      position: 'Backend Developer',
+      duration: 'June 2026 – July 2026',
+      location: 'Chennai, India',
+      description: 'Developed a full-stack Real Estate CRM application. Built backend functionality using Node.js and Express.js with MongoDB for data management. Implemented lead management and assignment workflows, worked with React-based frontend integration, and contributed to a Round Robin Lead Assignment module.',
+      technologies: ['Node.js', 'Express.js', 'MongoDB', 'React', 'Round Robin Assignment']
     },
     {
       id: 'exp-2',
-      company: 'Smart India Hackathon',
-      position: 'Full-Stack & Game Developer',
-      duration: '2023',
-      location: 'India',
-      description: 'Designed and prototyped Legacy Trail heritage board game concept and Geo Rescue Drone geospatial mapping solution.',
-      technologies: ['React', 'JavaScript', 'UI/UX', 'Game Design', 'IoT']
+      company: 'Elevate Labs',
+      position: 'Data Science Intern',
+      duration: 'January 2026 – March 2026',
+      location: 'Remote / India',
+      description: 'Worked on data science and machine learning workflows. Performed data preprocessing and exploratory analysis. Built and evaluated machine learning solutions using Python-based data analysis tools.',
+      technologies: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'Data Analysis']
     }
   ],
   projects: [
     {
       id: 'proj-1',
-      title: 'AI Medical Chatbot (Life Line)',
-      description: 'AI-powered healthcare assistant with symptom analysis, multilingual support, and personalized health reports.',
+      title: 'Life Line – AI Medical Assistant',
+      description: 'An AI-powered medical assistance platform designed to provide symptom analysis, personalized reports and doctor consultation support.',
       category: 'AI/ML',
-      techStack: ['React', 'Tailwind CSS', 'Flask', 'Python', 'AI'],
-      features: ['Symptom analysis powered by NLP', 'Multilingual support for global accessibility', 'Automated personalized health summary report download', 'Interactive conversational UI'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
+      techStack: ['React', 'Tailwind CSS', 'AI', 'REST API'],
+      features: [
+        'AI Symptom Checker',
+        'AI Analysis',
+        'Personalized Report',
+        'Doctor Consultation',
+        'Multilingual support',
+        'Responsive UI'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
       featured: true,
       image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800'
     },
     {
       id: 'proj-2',
-      title: 'Real Estate CRM',
-      description: 'Full-stack CRM with lead management, employee/admin dashboards, and Round Robin lead assignment.',
-      category: 'Full Stack',
-      techStack: ['MongoDB', 'Express.js', 'React', 'Node.js'],
-      features: ['Automated Round Robin lead distribution algorithm', 'Admin analytics and agent performance metrics', 'Lead status pipeline and activity tracking', 'JWT authentication and RBAC'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
+      title: 'Smart Ambulance Traffic Signal System',
+      description: 'Developed an AI-powered smart traffic management system to enable priority signal clearance for ambulances using GPS tracking, GSM communication and IR-based real-time vehicle detection.',
+      category: 'AI/ML',
+      techStack: ['Python', 'IoT', 'GPS', 'GSM', 'IR Sensors', 'AI'],
+      features: [
+        'Priority signal clearance algorithm',
+        'GPS ambulance tracking',
+        'IR real-time vehicle detection',
+        'GSM communication module'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
       featured: true,
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800'
+      image: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&q=80&w=800'
     },
     {
       id: 'proj-3',
-      title: 'Plant Disease Detection',
-      description: 'Predicts plant diseases from leaf images and provides treatment recommendations using Convolutional Neural Networks.',
-      category: 'AI/ML',
-      techStack: ['Python', 'TensorFlow', 'CNN', 'OpenCV', 'Flask'],
-      features: ['Deep Learning CNN model with 95%+ accuracy', 'Real-time leaf image upload and inference', 'Automated organic and chemical treatment recommendations', 'Flask API server'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
+      title: 'Plant Disease Prediction & AI Chatbot',
+      description: 'A computer vision system that detects plant diseases from leaf images and provides intelligent assistance through a chatbot.',
+      category: 'Computer Vision',
+      techStack: ['Python', 'CNN', 'TensorFlow', 'Keras', 'OpenCV'],
+      features: [
+        'Convolutional Neural Network classification',
+        'Real-time leaf image scanner',
+        'AI Advisory Chatbot',
+        'Treatment recommendations'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
       featured: true,
       image: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=800'
     },
     {
       id: 'proj-4',
-      title: 'Heart Disease Prediction System',
-      description: 'Predicts heart disease risk using machine learning algorithms and provides an interactive web interface.',
-      category: 'AI/ML',
-      techStack: ['Python', 'Scikit-learn', 'Streamlit'],
-      features: ['Risk score calculation based on clinical parameters', 'Interactive Streamlit web app', 'Exploratory data analysis visualizer'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
-      featured: false,
-      image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 'proj-5',
       title: 'Sign Language Recognition',
-      description: 'Recognizes hand gestures in real time using computer vision and hand landmark detection.',
-      category: 'AI/ML',
-      techStack: ['Python', 'MediaPipe', 'OpenCV', 'CNN'],
-      features: ['Real-time webcam hand tracking using MediaPipe', 'CNN gesture classification', 'Text-to-speech output'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
+      description: 'Developed a real-time sign language recognition system using computer vision and deep learning.',
+      category: 'Computer Vision',
+      techStack: ['Python', 'CNN', 'MediaPipe', 'OpenCV', 'TensorFlow'],
+      features: [
+        'MediaPipe hand landmark extraction',
+        'CNN gesture recognizer',
+        'Real-time webcam interface'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
       featured: false,
       image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800'
     },
     {
-      id: 'proj-6',
-      title: 'Agro Puthalavan – AI Smart Agriculture',
-      description: 'Crop recommendation and smart agriculture solution published as an IEEE conference paper.',
-      category: 'AI/ML',
-      techStack: ['Python', 'XGBoost', 'Flask'],
-      features: ['IEEE conference paper published project', 'Soil NPK & climate data analysis', 'XGBoost machine learning model'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
-      featured: true,
-      image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 'proj-7',
-      title: 'Crop Recommendation System',
-      description: 'Recommends suitable crops based on soil composition and environmental parameters.',
-      category: 'AI/ML',
-      techStack: ['Python', 'Flask', 'XGBoost'],
-      features: ['Soil type and humidity input parameters', 'High precision crop yield predictor', 'Flask REST API'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
-      featured: false,
-      image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 'proj-8',
-      title: 'Smart Community Health Monitoring & Early Warning System',
-      description: 'AI-based platform for monitoring water-borne diseases, health records, and risk assessment.',
-      category: 'Full Stack',
-      techStack: ['React', 'Node.js', 'MongoDB', 'AI'],
-      features: ['Disease outbreak risk mapping', 'Community health records management', 'Early warning automated alerts'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
+      id: 'proj-5',
+      title: 'Smart Community Health Monitoring System',
+      description: 'A system designed to monitor community-level health and provide early warning for water-borne disease risks.',
+      category: 'Data',
+      techStack: ['Python', 'Machine Learning', 'Data Analysis', 'Leaflet', 'OpenStreetMap'],
+      features: [
+        'Geospatial disease mapping',
+        'Early warning risk assessment',
+        'Data analysis visualizer'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
       featured: true,
       image: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=800'
     },
     {
-      id: 'proj-9',
-      title: 'Heritage Quest',
-      description: 'Educational heritage exploration application designed to teach Indian history interactively.',
-      category: 'Frontend',
-      techStack: ['React', 'JavaScript'],
-      features: ['Gamified historical quiz modules', 'Interactive monument 3D viewer concept', 'User progression badge system'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
+      id: 'proj-6',
+      title: 'Crop Recommendation System',
+      description: 'Machine-learning based application that recommends suitable crops based on agricultural and environmental parameters.',
+      category: 'AI/ML',
+      techStack: ['Python', 'XGBoost', 'Flask', 'Machine Learning'],
+      features: [
+        'Soil composition NPK analysis',
+        'XGBoost predictive engine',
+        'Flask API server'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
+      featured: false,
+      image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=800'
+    },
+    {
+      id: 'proj-7',
+      title: 'Real Estate CRM',
+      description: 'A full-stack CRM application for managing properties, leads, employees and follow-ups.',
+      category: 'Full Stack',
+      techStack: ['React', 'Node.js', 'Express.js', 'MongoDB'],
+      features: [
+        'Authentication',
+        'Admin Dashboard',
+        'Employee Dashboard',
+        'Lead Management',
+        'Property Management',
+        'Follow-up Management',
+        'Round Robin Lead Assignment'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
+      featured: true,
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800'
+    },
+    {
+      id: 'proj-8',
+      title: 'Heritage Trail / Heritage Quest',
+      description: 'An interactive heritage-focused board game/project designed to promote cultural awareness through gameplay.',
+      category: 'Full Stack',
+      techStack: ['React', 'JavaScript', 'Game Design', 'Interactive Media'],
+      features: [
+        'Gamified cultural learning',
+        'Interactive board prototype'
+      ],
+      githubLink: 'https://github.com/SUBBIAH-V',
+      liveDemo: 'https://github.com/SUBBIAH-V',
       featured: false,
       image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 'proj-10',
-      title: 'Legacy Trail (Heritage Board Game)',
-      description: 'Board game developed for a Smart India Hackathon concept focused on Indian cultural heritage.',
-      category: 'Frontend',
-      techStack: ['Game Design', 'UI/UX'],
-      features: ['Smart India Hackathon innovative concept', 'Cultural heritage storytelling', 'UI/UX interactive board prototype'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
-      featured: false,
-      image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 'proj-11',
-      title: 'Geo Rescue Drone (GPR)',
-      description: 'Drone-based rescue and geospatial mapping concept for disaster management.',
-      category: 'Hardware/AI',
-      techStack: ['IoT', 'AI (Concept/Prototype)'],
-      features: ['Ground Penetrating Radar data mapping', 'Autonomous path planning model', 'Disaster search and rescue framework'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
-      featured: false,
-      image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 'proj-12',
-      title: 'EEGXI – Power-Skin AI-Driven Energy Fabric',
-      description: 'Innovative concept combining wearable technology with AI-driven energy monitoring.',
-      category: 'Hardware/AI',
-      techStack: ['Wearables', 'AI'],
-      features: ['Wearable kinetic energy harvester', 'AI-driven power usage analytics', 'Biometric feedback tracking'],
-      githubLink: 'https://github.com',
-      liveDemo: 'https://demo.com',
-      featured: false,
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800'
     }
   ],
   certifications: [
     {
       id: 'cert-1',
-      title: 'Deep Learning & Neural Networks',
-      organization: 'Coursera / DeepLearning.AI',
-      date: '2023',
-      credentialId: 'DL-893021',
-      verificationLink: 'https://coursera.org'
+      title: 'NPTEL Certification',
+      organization: 'NPTEL',
+      date: 'Certified',
+      credentialId: '',
+      verificationLink: 'https://nptel.ac.in'
     },
     {
       id: 'cert-2',
-      title: 'Full Stack Web Development',
-      organization: 'FreeCodeCamp',
-      date: '2022',
-      credentialId: 'FCC-302194',
-      verificationLink: 'https://freecodecamp.org'
+      title: 'C Programming',
+      organization: 'Spoken Tutorial, IIT Bombay',
+      date: 'Certified',
+      credentialId: '',
+      verificationLink: 'https://spoken-tutorial.org'
+    },
+    {
+      id: 'cert-3',
+      title: 'Relevant AI / ML Certification',
+      organization: 'Professional AI Certification',
+      date: 'Certified',
+      credentialId: '',
+      verificationLink: '#'
     }
   ],
   research: [
     {
       id: 'res-1',
-      title: 'Agro Puthalavan: AI Smart Agriculture & Crop Recommendation Model',
-      abstract: 'Published IEEE conference paper proposing XGBoost machine learning model for soil-based crop prediction and automated disease diagnosis from leaf images.',
-      publisher: 'IEEE Conference',
-      doi: '10.1109/AGRO.2023.1092834',
-      publicationLink: 'https://ieee.org',
-      date: '2023'
+      title: 'Agro Puthalavan',
+      abstract: 'IEEE Conference Paper – ICDSAAI 2025 focusing on Machine Learning algorithms, Computer Vision for plant disease diagnosis, and smart agriculture decision systems.',
+      publisher: 'IEEE Conference Paper – ICDSAAI 2025',
+      doi: '10.1109/ICDSAAI.2025.0192',
+      publicationLink: '#',
+      date: '2025'
     }
   ],
   achievements: [
     {
       id: 'ach-1',
-      title: 'Smart India Hackathon Finalist',
-      description: 'Selected for Legacy Trail & Geo Rescue Drone concept presentations.',
-      date: '2023'
+      title: 'DataSprint 3.0',
+      description: '24 Hour Data Science Hackathon',
+      date: '2024'
     },
     {
       id: 'ach-2',
-      title: 'IEEE Research Paper Author',
-      description: 'Authored and published research paper on Smart Agriculture AI.',
+      title: 'Hackwise 2.0',
+      description: 'Hackathon participant and innovative project recognition.',
+      date: '2024'
+    },
+    {
+      id: 'ach-3',
+      title: 'Smart India Hackathon',
+      description: 'Smart India Hackathon participation & project presentation.',
       date: '2023'
+    },
+    {
+      id: 'ach-4',
+      title: 'IEEE Conference Paper',
+      description: 'ICDSAAI 2025 Research Paper Author',
+      date: '2025'
+    },
+    {
+      id: 'ach-5',
+      title: 'AICTE / TechSaksham',
+      description: 'AICTE / TechSaksham internship experience',
+      date: '2024'
     }
   ],
   messages: [],
   settings: {
-    siteTitle: 'SUBBIAH VADIVELAN | AI Engineer & Full-Stack Developer Portfolio',
-    metaDescription: 'AI Engineer & Full-Stack Developer Portfolio featuring 12 projects in AI, Machine Learning, Computer Vision, and Full Stack MERN applications.',
-    metaKeywords: 'SUBBIAH VADIVELAN, AI Engineer, Machine Learning, Python, React, Flask, OpenCV, Smart Agriculture'
+    siteTitle: 'Subbiah V. | AI Engineer | Machine Learning | Data Science',
+    metaDescription: 'Portfolio of Subbiah V., an Artificial Intelligence & Data Science student specializing in Machine Learning, Computer Vision, Data Engineering and Full-Stack Development.',
+    metaKeywords: 'Subbiah V., AI Engineer, Machine Learning, Data Science, Sri Sairam Institute of Technology, Computer Vision, Python, React'
   }
 };
 
@@ -339,7 +393,6 @@ export const uploadFile = async (file: File): Promise<{ url: string }> => {
     console.warn('[Upload Warning]: File upload endpoint failed, encoding to Base64 data URL for cross-session compatibility.');
   }
 
-  // Base64 fallback so photo renders reliably across tabs and browsers
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onloadend = () => {
